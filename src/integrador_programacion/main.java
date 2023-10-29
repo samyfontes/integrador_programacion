@@ -76,6 +76,28 @@ public class main {
         biblioteca.agregarUsuario(usr4);
         biblioteca.agregarUsuario(usr5);
 
+        Prestamo prestamo1 = new Prestamo(usr1, libro10, "01/01/2021");
+        Prestamo prestamo2 = new Prestamo(usr2, libro5, "02/01/2021");
+        Prestamo prestamo3 = new Prestamo(usr3, libro1, "03/01/2021");
+        Prestamo prestamo4 = new Prestamo(usr4, libro7, "04/01/2021");
+        Prestamo prestamo5 = new Prestamo(usr5, libro2, "05/01/2021");
+        Prestamo prestamo6 = new Prestamo(usr1, libro16, "06/01/2021");
+        Prestamo prestamo7 = new Prestamo(usr2, libro9, "07/01/2021");
+        Prestamo prestamo8 = new Prestamo(usr3, libro2, "08/01/2021");
+        Prestamo prestamo9 = new Prestamo(usr4, libro1, "09/01/2021");
+        Prestamo prestamo10 = new Prestamo(usr5, libro11, "10/01/2021");
+
+        biblioteca.agregarPrestamo(prestamo1);
+        biblioteca.agregarPrestamo(prestamo2);
+        biblioteca.agregarPrestamo(prestamo3);
+        biblioteca.agregarPrestamo(prestamo4);
+        biblioteca.agregarPrestamo(prestamo5);
+        biblioteca.agregarPrestamo(prestamo6);
+        biblioteca.agregarPrestamo(prestamo7);
+        biblioteca.agregarPrestamo(prestamo8);
+        biblioteca.agregarPrestamo(prestamo9);
+        biblioteca.agregarPrestamo(prestamo10);
+
 
         insertSpaces();
         System.out.println("Ingrese su numero de documento");
@@ -167,13 +189,8 @@ public class main {
                 case 3:
 
                     while (opcion != 1) {
-                        System.out.println("          Mostrar libros disponibles");
-                        System.out.println("----------------------------------------------");
-                        System.out.println("Título                                   -      Autor                         -   Copias Disponibles");
-                        for (Libro libro_a_mostrar : biblioteca.getLibros()) {
-                            String tableRow = String.format("%-40s - %-12s - %25d", libro_a_mostrar.getTitulo(), libro_a_mostrar.getAutor(), libro_a_mostrar.getCopiasDisponibles());
-                            System.out.println(tableRow);
-                        }
+
+                        biblioteca.mostrarLibrosDisponibles();
                         insertSpaces();
                         System.out.println("Presione 1 para volver al menú");
                         opcion = scan.nextInt();
@@ -188,13 +205,10 @@ public class main {
                     //mostramos a todos los usuarios en una tabla junto con su numero de documento y su nombre completo
                     while(opcion != 1){
 
-
-
-
-
                         System.out.println("               Mostrar usuarios");
                         System.out.println("----------------------------------------------");
                         System.out.println("Nombre completo      -      Documento");
+                        System.out.println("----------------------------------------------");
 
                         for (Usuario usr : biblioteca.getUsuarios()) {
                             String tableRow = String.format("%-20s - %13d", usr.getNombre() + " " + usr.getApellido(), usr.getDocumento());
@@ -211,13 +225,33 @@ public class main {
                     }
                     break;
 
+                case 5:
+                    // Ahora mostraremos los prestamos en una tabla
+                    while(opcion != 1) {
 
+                        System.out.println("               Mostrar prestamos");
+                        System.out.println("-----------------------------------------------------------------------");
+                        System.out.println("Usuario              -      Libro                     -   Fecha");
+                        System.out.println("-----------------------------------------------------------------------");
+
+                        for (Prestamo prestamo : biblioteca.getPrestamos()) {
+                            String tableRow = String.format("%-20s - %-30s - %s", prestamo.getUsuario().getNombre() + " " + prestamo.getUsuario().getApellido(), prestamo.getLibro().getTitulo(), prestamo.getFechaPrestamo());
+                            System.out.println(tableRow);
+                        }
+
+                        insertSpaces();
+                        System.out.println("Presione 1 para volver al menú");
+                        opcion = scan.nextInt();
+                        scan.nextLine();
+                        clearConsole();
+                    }
+                        break;
+
+                case 6:
+                    normalMenu(biblioteca, scan, usuario);
+                    break;
             }
-
-
         }
-
-
     }
 
     private static void normalMenu(Biblioteca biblioteca, Scanner scan, Usuario usuario){
@@ -277,7 +311,6 @@ public class main {
 
                     break;
                 case 3:
-                    System.out.println("Mostrar libros disponibles");
                     biblioteca.mostrarLibrosDisponibles();
                     break;
                 case 4:

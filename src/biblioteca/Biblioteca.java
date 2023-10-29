@@ -68,10 +68,12 @@ public class Biblioteca {
 
     //este metodo muestra una lista de los libros con copias disponibles para prestar, junto con la cantidad de copias disponibles
     public void mostrarLibrosDisponibles(){
-        for (Libro libro : this.libros) {
-            if (libro.getCopiasDisponibles() > 0) {
-                System.out.println(libro.getTitulo() + " - " + libro.getCopiasDisponibles() + " copias disponibles");
-            }
+        System.out.println("          Mostrar libros disponibles");
+        System.out.println("----------------------------------------------");
+        System.out.println("Título                                   -      Autor                         -   Copias Disponibles");
+        for (Libro libro_a_mostrar : this.getLibros()) {
+            String tableRow = String.format("%-40s - %-34s  %-4d", libro_a_mostrar.getTitulo(), libro_a_mostrar.getAutor(), libro_a_mostrar.getCopiasDisponibles());
+            System.out.println(tableRow);
         }
     }
 
